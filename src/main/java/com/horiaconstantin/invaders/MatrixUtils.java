@@ -9,12 +9,12 @@ public class MatrixUtils {
 
     /**
      * Helper method that returns a matrix with the specified params
-     * @param numberOfColumns minimum 1, else exception will be thrown
      * @param numberofRows minimum 1, else exception will be thrown
+     * @param numberOfColumns minimum 1, else exception will be thrown
      * @param defaultValue any non-empty string, else exception will be thrown
      * @throws IllegalArgumentException if any of the arguments is out of bounds
      */
-    public static String[][] getEmptyMatrix(int numberOfColumns, int numberofRows, String defaultValue){
+    public static String[][] getEmptyMatrix(int numberofRows, int numberOfColumns, String defaultValue){
 
         if(numberOfColumns < 1 || numberofRows <1 || isBlank(defaultValue)){
             throw new IllegalArgumentException("Cannot create a new empty matrix with the given arguments");
@@ -41,4 +41,7 @@ public class MatrixUtils {
 
 
 //    }
+
+
+
 }

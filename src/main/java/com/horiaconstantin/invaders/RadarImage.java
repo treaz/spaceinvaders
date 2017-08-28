@@ -26,6 +26,21 @@ public class RadarImage {
     }
 
     public String getValueAt(int row, int column){
+        ///todo check inputs
         return radarImage[row][column];
+    }
+
+    // this will do array opearions (starts exactly at start and ends before the endRow)
+    public String[][] getSubImage(int startRow, int endRow, int startColumn, int endColumn){
+        // todo chekc inputs
+        String[][] result = new String[endRow-startRow][endColumn-startColumn];
+
+        for (int i = startRow; i<endRow; i++){
+            for (int j = startColumn; j<endColumn; j++){
+                result[i-startRow][j-startColumn]=radarImage[i][j];
+            }
+        }
+
+        return result;
     }
 }

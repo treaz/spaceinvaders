@@ -14,3 +14,6 @@ The program must take a radar image as input, like the example below, and detect
 
 * The noise in the radar image can be either false positives or false negatives
 * Think of edge cases ... pun intended ;)
+
+
+Assuming that space invaders cannot overlap

@@ -1,21 +1,15 @@
 package com.horiaconstantin.invaders;
 
-import com.horiaconstantin.invaders.App;
-import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 
 public class AppTest {
 
     private App app;
 
-    @Before
-    public void before() throws Exception {
-//        app = new App();
-    }
-
     @Test
-    public void radarImageSizeInvalid(){
-
+    public void testFullApplication() throws IOException {
     }
 
 }

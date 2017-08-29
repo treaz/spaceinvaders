@@ -1,5 +1,6 @@
 package com.horiaconstantin.invaders;
 
+
 public class App {
 
     public static final int ROW_LENGTH = 100; // put this in app properties
@@ -33,6 +34,5 @@ public class App {
     }
 
     public static void main(String[] args) {
-//        System.out.println(MatrixUtils.getEmptyRadarImage());
     }
 }

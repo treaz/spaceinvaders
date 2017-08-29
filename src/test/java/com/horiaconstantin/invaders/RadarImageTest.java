@@ -18,11 +18,6 @@ public class RadarImageTest {
         emptyMatrix = MatrixUtils.getEmptyMatrix(50, 100);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void createRadarImage() {
-        new RadarImage(null);
-    }
-
     @Test
     public void createValidRadarImage() {
         RadarImage image = new RadarImage(emptyMatrix);

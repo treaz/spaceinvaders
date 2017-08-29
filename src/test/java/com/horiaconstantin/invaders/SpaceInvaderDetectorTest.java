@@ -5,6 +5,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
@@ -101,6 +102,17 @@ public class SpaceInvaderDetectorTest {
         int spaceInvadersOneFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
 
         assertThat(spaceInvadersTwoFound, is(1));
+        assertThat(spaceInvadersOneFound, is(2));
+    }
+
+    @Test
+    public void searchForSpaceInvader_InvadersInAllCorners() throws IOException {
+        RadarImage image = new RadarImage(TestUtils.readMatrixFromFile("images/invadersInAllCorners.txt"));
+
+        int spaceInvadersTwoFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderTwo);
+        int spaceInvadersOneFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
+
+        assertThat(spaceInvadersTwoFound, is(2));
         assertThat(spaceInvadersOneFound, is(2));
     }
 

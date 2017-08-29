@@ -18,19 +18,16 @@ public class RadarImageTest {
         emptyMatrix = MatrixUtils.getEmptyMatrix(50, 100);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void createRadarImage() {
+        new RadarImage(null);
+    }
+
     @Test
     public void createValidRadarImage() {
         RadarImage image = new RadarImage(emptyMatrix);
 
         assertNotNull(image);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void createRadarImageWithInvalidChars() {
-        String[][] emptyMatrix = MatrixUtils.getEmptyMatrix(50, 100);
-        emptyMatrix[0][0] = "x";
-
-        new RadarImage(emptyMatrix);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -41,12 +38,18 @@ public class RadarImageTest {
     }
 
     @Test
-    public void getValueAtTopLeft() {
+    public void getValuesFromCorners() {
         RadarImage image = new RadarImage(emptyMatrix);
 
-        String value = image.getValueAt(0,0);
+        String valueTopLeft = image.getValueAt(0,0);
+        String valueTopRight = image.getValueAt(0,99);
+        String valueBottomLeft = image.getValueAt(49,0);
+        String valueBottomRight = image.getValueAt(49,99);
 
-        assertThat(value, is("-"));
+        assertThat(valueTopLeft, is("-"));
+        assertThat(valueTopRight, is("-"));
+        assertThat(valueBottomLeft, is("-"));
+        assertThat(valueBottomRight, is("-"));
     }
 
     @Test(expected = OutOfRangeException.class)
@@ -61,6 +64,13 @@ public class RadarImageTest {
         RadarImage image = new RadarImage(emptyMatrix);
 
         image.getValueAt(1,100);
+    }
+
+    @Test(expected = OutOfRangeException.class)
+    public void getValueNegativeColumn() {
+        RadarImage image = new RadarImage(emptyMatrix);
+
+        image.getValueAt(1,-1);
     }
 
     @Test

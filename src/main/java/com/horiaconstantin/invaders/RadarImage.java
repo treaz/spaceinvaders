@@ -1,8 +1,8 @@
 package com.horiaconstantin.invaders;
 
+import lombok.NonNull;
 import org.apache.commons.math3.exception.NumberIsTooSmallException;
 import org.apache.commons.math3.exception.OutOfRangeException;
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 
 import static com.horiaconstantin.invaders.MatrixUtils.realMatrixToStringMatrix;
@@ -20,30 +20,27 @@ public class RadarImage {
     // Priority is speed of development and tested code
     private RealMatrix radarImage;
 
-    public RadarImage(String[][] radarImage) {
+    /**
+     *
+     * @param radarImage a matrix of 50rows by 100columns with just "-" or "o" as allowed values
+     * @throws IllegalArgumentException if radarImage has anything but 50 rows and 100 columns
+     * @throws NullPointerException if radarImage is null
+     */
+    public RadarImage(@NonNull String[][] radarImage) {
         if (radarImage.length != ROWS){
             throw new IllegalArgumentException("Radar image contains too few rows: '"+radarImage.length+"'. It should have '"+ ROWS +"' rows");
         }
-        //TODO improve this double for
-        for (String[] row : radarImage) {
-            if (row.length != COLUMNS){
-                throw new IllegalArgumentException("Radar image row length '"+row.length+"' invalid. All rows should have '"+ COLUMNS +"' chars");
-            }
-            for (String value : row) {
-                if (!"-".equals(value) && !"o".equals(value)){
-                    throw new IllegalArgumentException("Radar image contains invalid characters");
-                }
-            }
+        if (radarImage[0].length != COLUMNS){
+            throw new IllegalArgumentException("Radar image contains too few columns: '"+radarImage[0].length+"'. It should have '"+ COLUMNS +"' columns");
         }
         this.radarImage = stringMatrixToRealMatrix(radarImage);
     }
 
     /**
-     * Get the entry in the specified row and column. Row and column indices
-     * start at 0.
+     * Get the entry in the specified row and column.
      *
-     * @param row Row index of entry to be fetched.
-     * @param column Column index of entry to be fetched.
+     * @param row Row index of entry to be fetched. NOTE: 0 based
+     * @param column Column index of entry to be fetched. NOTE: 0 based
      * @return the matrix entry at {@code (row, column)}.
      * @throws OutOfRangeException if the row or column index is not valid.
      */

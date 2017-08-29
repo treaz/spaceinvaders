@@ -8,15 +8,6 @@ public class MatrixUtils {
 
     /**
      * Helper method that returns a matrix with the specified params
-     * @param numberofRows minimum 1, else exception will be thrown
-     * @param numberOfColumns minimum 1, else exception will be thrown
-     * @param defaultValue any non-empty string, else exception will be thrown
-     * @throws IllegalArgumentException if any of the arguments is out of bounds
-     */
-
-
-    /**
-     * Helper method that returns a matrix with the specified params
      *
      * @param rowDimension Number of rows in the new matrix.
      * @param columnDimension Number of columns in the new matrix.
@@ -29,6 +20,7 @@ public class MatrixUtils {
         return realMatrixToStringMatrix(emptyMatrix);
     }
 
+    //TODO javadoc this
     public static RealMatrix stringMatrixToRealMatrix(String[][] radarImage){
         double[][] radarImageAsNumbers = new double[radarImage.length][radarImage[0].length];
         for (int i = 0; i<radarImage.length; i++){
@@ -40,6 +32,7 @@ public class MatrixUtils {
         return new Array2DRowRealMatrix(radarImageAsNumbers);
     }
 
+    //TODO javadoc this
     public static String[][] realMatrixToStringMatrix(RealMatrix radarImageMartix){
         double[][] radarImageAsNumbers = radarImageMartix.getData();
 

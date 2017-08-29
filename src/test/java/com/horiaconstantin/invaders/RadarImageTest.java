@@ -72,16 +72,31 @@ public class RadarImageTest {
     }
 
     @Test
-    public void getSubImage() {
-        emptyMatrix[1][1]="o";
+    public void getSubImageWithValuesInTheCorners() {
+        int startRow = 4;
+        int endRow = 8;
+        int startColumn = 6;
+        int endColumn = 9;
+
+        emptyMatrix[startRow][startColumn]="o";
+        emptyMatrix[7][startColumn]="o";
+
+        emptyMatrix[startRow][endColumn-1]="o";
+        emptyMatrix[endRow-1][endColumn-1]="o";
 
         RadarImage image = new RadarImage(emptyMatrix);
-        String[][] subMatrix = MatrixUtils.getEmptyMatrix(4, 3, "-");
-        subMatrix[1][1]="o";
+        String[][] subMatrix = MatrixUtils.getEmptyMatrix(endRow-startRow, endColumn-startColumn, "-");
+        subMatrix[0][0]="o";
+        subMatrix[3][0]="o";
+        subMatrix[0][2]="o";
+        subMatrix[3][2]="o";
 
-        String[][] subImage = image.getSubImage(0, 4, 0, 3);
+
+        String[][] subImage = image.getSubImage(startRow, endRow, startColumn, endColumn);
 
         assertTrue(Arrays.deepEquals(subImage, subMatrix));
     }
+
+
 
 }

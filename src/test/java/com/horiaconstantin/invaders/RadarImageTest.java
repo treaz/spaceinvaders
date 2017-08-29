@@ -1,5 +1,6 @@
 package com.horiaconstantin.invaders;
 
+import org.apache.commons.math3.exception.OutOfRangeException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class RadarImageTest {
 
     @Before
     public void before(){
-        emptyMatrix = MatrixUtils.getEmptyMatrix(50, 100, "-");
+        emptyMatrix = MatrixUtils.getEmptyMatrix(50, 100);
     }
 
     @Test
@@ -26,14 +27,15 @@ public class RadarImageTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void createRadarImageWithInvalidChars() {
-        String[][] emptyMatrix = MatrixUtils.getEmptyMatrix(50, 100, "x");
+        String[][] emptyMatrix = MatrixUtils.getEmptyMatrix(50, 100);
+        emptyMatrix[0][0] = "x";
 
         new RadarImage(emptyMatrix);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createRadarImageWithInvalidSize() {
-        String[][] emptyMatrix = MatrixUtils.getEmptyMatrix(50, 77, "-");
+        String[][] emptyMatrix = MatrixUtils.getEmptyMatrix(50, 77);
 
         new RadarImage(emptyMatrix);
     }
@@ -47,14 +49,14 @@ public class RadarImageTest {
         assertThat(value, is("-"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = OutOfRangeException.class)
     public void getValueInvalidRow() {
         RadarImage image = new RadarImage(emptyMatrix);
 
         image.getValueAt(50,0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = OutOfRangeException.class)
     public void getValueInvalidColumn() {
         RadarImage image = new RadarImage(emptyMatrix);
 
@@ -79,20 +81,34 @@ public class RadarImageTest {
         int endColumn = 9;
 
         emptyMatrix[startRow][startColumn]="o";
-        emptyMatrix[7][startColumn]="o";
-
+        emptyMatrix[endRow-1][startColumn]="o";
         emptyMatrix[startRow][endColumn-1]="o";
         emptyMatrix[endRow-1][endColumn-1]="o";
 
         RadarImage image = new RadarImage(emptyMatrix);
-        String[][] subMatrix = MatrixUtils.getEmptyMatrix(endRow-startRow, endColumn-startColumn, "-");
+        String[][] subMatrix = MatrixUtils.getEmptyMatrix(endRow-startRow, endColumn-startColumn);
         subMatrix[0][0]="o";
         subMatrix[3][0]="o";
         subMatrix[0][2]="o";
         subMatrix[3][2]="o";
 
 
-        String[][] subImage = image.getSubImage(startRow, endRow, startColumn, endColumn);
+        String[][] subImage = image.getSubImage(startRow, endRow-1, startColumn, endColumn-1);
+
+        assertTrue(Arrays.deepEquals(subImage, subMatrix));
+    }
+
+    @Test
+    public void getSubImageWithOneElement() {
+        int startRow = 4;
+        int endRow = 5;
+        int startColumn = 6;
+        int endColumn = 7;
+
+        RadarImage image = new RadarImage(emptyMatrix);
+        String[][] subMatrix = MatrixUtils.getEmptyMatrix(1, 1);
+
+        String[][] subImage = image.getSubImage(startRow, endRow-1, startColumn, endColumn-1);
 
         assertTrue(Arrays.deepEquals(subImage, subMatrix));
     }

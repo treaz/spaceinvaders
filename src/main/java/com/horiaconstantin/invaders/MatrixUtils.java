@@ -27,7 +27,7 @@ public class MatrixUtils {
     /**
      * Transforms a String[][] into a RealMatrix
      * @param stringMatrix a non-null matrix that has only "o" or "-" as values
-     * @return a RealMatrix that has 0 in the positions in which stringMatrix has "-" and "1" in the positions in which it has "o"
+     * @return a RealMatrix that has "0.0" in the positions in which stringMatrix has "-" and "1.0" in the positions in which it has "o"
      * @throws IllegalArgumentException if argument contains other values than "o" or "-"
      * @throws NullPointerException if argument is null
      */
@@ -46,21 +46,42 @@ public class MatrixUtils {
 
     /**
      * Validates is the argument contains valid values: "o" or "-"
-     * @param stringMatrix
+     * @throws IllegalArgumentException if argument contains other values than "o" or "-"
      */
     public static void validateValues(@NonNull String[][] stringMatrix) {
         for (String[] row : stringMatrix) {
             for (String value : row) {
                 if (!"-".equals(value) && !"o".equals(value)){
-                    throw new IllegalArgumentException("Radar image contains invalid characters");
+                    throw new IllegalArgumentException("Character '"+value+"' not allowed. Only 'o' or '-' are allowed");
                 }
             }
         }
     }
 
-    //TODO javadoc this
+    /**
+     * Validates is the argument contains valid values: "0.0" or "1.0"
+     * @throws IllegalArgumentException if argument contains other values than "0.0" or "1.0"
+     */
+    public static void validateValues(@NonNull RealMatrix realMatrix) {
+        double[][] data =  realMatrix.getData();
+        for (double[] row : data) {
+            for (double value : row) {
+                if (1.0 != value && 0.0 != value){
+                    throw new IllegalArgumentException("Character '"+value+"' not allowed. Only '1.0' or '0.0' are allowed");
+                }
+            }
+        }
+    }
+
+    /**
+     * Transforms a RealMatrix into a String[][]
+     * @param doubleMatrix a non-null matrix that has only "1.0" or "0.0" as values
+     * @return a String[][] that has "-" in the positions in which stringMatrix has "0.0" and "o" in the positions in which it has "1.0"
+     * @throws IllegalArgumentException if argument contains other values than "0.0" or "1.0"
+     * @throws NullPointerException if argument is null
+     */
     public static String[][] realMatrixToStringMatrix(@NonNull RealMatrix doubleMatrix){
-        //TODO validate values
+        validateValues(doubleMatrix);
         double[][] radarImageAsNumbers = doubleMatrix.getData();
 
         String[][] radarImage = new String[radarImageAsNumbers.length][radarImageAsNumbers[0].length];

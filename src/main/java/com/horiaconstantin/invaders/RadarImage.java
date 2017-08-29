@@ -27,13 +27,25 @@ public class RadarImage {
      * @throws NullPointerException if radarImage is null
      */
     public RadarImage(@NonNull String[][] radarImage) {
+        validateRadarImageSizes(radarImage);
+        this.radarImage = stringMatrixToRealMatrix(radarImage);
+    }
+
+    /**
+     * Convenience constructor used for testing
+     */
+    RadarImage(@NonNull RealMatrix radarImage) {
+        validateRadarImageSizes(realMatrixToStringMatrix(radarImage));
+        this.radarImage = radarImage;
+    }
+
+    private void validateRadarImageSizes(@NonNull String[][] radarImage) {
         if (radarImage.length != ROWS){
             throw new IllegalArgumentException("Radar image contains too few rows: '"+radarImage.length+"'. It should have '"+ ROWS +"' rows");
         }
         if (radarImage[0].length != COLUMNS){
             throw new IllegalArgumentException("Radar image contains too few columns: '"+radarImage[0].length+"'. It should have '"+ COLUMNS +"' columns");
         }
-        this.radarImage = stringMatrixToRealMatrix(radarImage);
     }
 
     /**
@@ -66,5 +78,23 @@ public class RadarImage {
         RealMatrix subMatrix = radarImage.getSubMatrix(startRow, endRow, startColumn, endColumn);
 
         return realMatrixToStringMatrix(subMatrix);
+    }
+
+    /**
+     * Returns the number of columns in the image.
+     *
+     * @return columnDimension
+     */
+    public int getColumnDimension(){
+        return radarImage.getColumnDimension();
+    }
+
+    /**
+     * Returns the number of rows in the matrix.
+     *
+     * @return rowDimension
+     */
+    public int getRowDimension(){
+        return radarImage.getRowDimension();
     }
 }

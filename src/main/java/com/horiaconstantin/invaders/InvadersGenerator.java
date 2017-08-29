@@ -2,7 +2,8 @@ package com.horiaconstantin.invaders;
 
 public class InvadersGenerator {
 
-    //TODO consider refactoring this into reading from a file and populating the array in that way
+    //TODO IMPORTANT consider refactoring this into reading from a file and populating the array in that way
+
 
     public static String[][] getInvaderOne(){
         String[][] invader = new String[8][11];

@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -28,7 +27,7 @@ public class SpaceInvaderDetectorTest {
     public void searchForSpaceInvader_emptyImage(){
         RadarImage image = new RadarImage(matrix);
 
-        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
+        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne, 0);
 
         assertThat(spaceInvadersFound, is(0));
     }
@@ -40,7 +39,7 @@ public class SpaceInvaderDetectorTest {
         matrix.setSubMatrix(invaderOneMatrix.getData(), 0, 0);
         RadarImage image = new RadarImage(matrix);
 
-        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
+        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne, 0);
 
         assertThat(spaceInvadersFound, is(1));
     }
@@ -51,7 +50,7 @@ public class SpaceInvaderDetectorTest {
         matrix.setSubMatrix(invaderOneMatrix.getData(), 0, 100-invaderOneMatrix.getColumnDimension());
         RadarImage image = new RadarImage(matrix);
 
-        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
+        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne, 0);
 
         assertThat(spaceInvadersFound, is(1));
     }
@@ -62,7 +61,7 @@ public class SpaceInvaderDetectorTest {
         matrix.setSubMatrix(invaderOneMatrix.getData(), 50-invaderOneMatrix.getRowDimension(), 0);
         RadarImage image = new RadarImage(matrix);
 
-        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
+        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne, 0);
 
         assertThat(spaceInvadersFound, is(1));
     }
@@ -73,7 +72,7 @@ public class SpaceInvaderDetectorTest {
         matrix.setSubMatrix(invaderOneMatrix.getData(), 50-invaderOneMatrix.getRowDimension(), 100-invaderOneMatrix.getColumnDimension());
         RadarImage image = new RadarImage(matrix);
 
-        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
+        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne, 0);
 
         assertThat(spaceInvadersFound, is(1));
     }
@@ -84,7 +83,7 @@ public class SpaceInvaderDetectorTest {
         matrix.setSubMatrix(invaderOneMatrix.getData(), 50-invaderOneMatrix.getRowDimension(), 100-invaderOneMatrix.getColumnDimension());
         RadarImage image = new RadarImage(matrix);
 
-        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderTwo);
+        int spaceInvadersFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderTwo, 0);
 
         assertThat(spaceInvadersFound, is(1));
     }
@@ -98,8 +97,8 @@ public class SpaceInvaderDetectorTest {
         matrix.setSubMatrix(invaderTwoMatrix.getData(), 30, 50);
         RadarImage image = new RadarImage(matrix);
 
-        int spaceInvadersTwoFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderTwo);
-        int spaceInvadersOneFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
+        int spaceInvadersTwoFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderTwo, 0);
+        int spaceInvadersOneFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne, 0);
 
         assertThat(spaceInvadersTwoFound, is(1));
         assertThat(spaceInvadersOneFound, is(2));
@@ -109,11 +108,22 @@ public class SpaceInvaderDetectorTest {
     public void searchForSpaceInvader_InvadersInAllCorners() throws IOException {
         RadarImage image = new RadarImage(TestUtils.readMatrixFromFile("images/invadersInAllCorners.txt"));
 
-        int spaceInvadersTwoFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderTwo);
-        int spaceInvadersOneFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne);
+        int spaceInvadersTwoFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderTwo, 0);
+        int spaceInvadersOneFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne, 0);
 
         assertThat(spaceInvadersTwoFound, is(2));
         assertThat(spaceInvadersOneFound, is(2));
+    }
+
+    @Test
+    public void searchForSpaceInvader_InvadersFUGA() throws IOException {
+        RadarImage image = new RadarImage(TestUtils.readMatrixFromFile("images/fugaSpaceInvaders.txt"));
+
+        int spaceInvadersTwoFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderTwo, 10);
+        int spaceInvadersOneFound = SpaceInvaderDetector.searchForSpaceInvader(image, invaderOne, 8);
+
+        assertThat(spaceInvadersTwoFound, is(4));
+        assertThat(spaceInvadersOneFound, is(1));
     }
 
 

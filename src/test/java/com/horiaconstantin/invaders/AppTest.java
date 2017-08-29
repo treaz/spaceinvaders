@@ -10,6 +10,7 @@ public class AppTest {
 
     @Test
     public void testFullApplication() throws IOException {
+
     }
 
 }

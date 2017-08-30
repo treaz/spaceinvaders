@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+//TODO write tests for this class
 public class TestUtils {
 
-    //TODO consider writing a test for this and also refactoring it
     static String[][] readMatrixFromFile(String filename) throws IOException {
         String content = Resources.toString(Resources.getResource(filename), Charsets.UTF_8);
         List<String[]> dynamicMatrix = Lists.newArrayList();

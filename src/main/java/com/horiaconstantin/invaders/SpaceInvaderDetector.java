@@ -7,13 +7,16 @@ import java.util.Arrays;
 public class SpaceInvaderDetector {
 
     /**
-     * Uses a rolling window technique to search for a space invader
-     * Drawbacks of the algorythm is that is might count a space invader twice when the allowedErrors is increased a lot
-     * Also, it will only scan for invaders strictly in the radar image.
+     * Uses a rolling window technique to decompose the radar image and search for a space invader.
      * If an invader is displayed partially on the radar image (a column/row is missing from it), it will be ignored
+     * Drawbacks of the current algorithm:
+     *  - it might count a space invader twice when the allowedErrors is increased a lot
+     *  - it will only scan for invaders strictly in the radar image
+     *  - performance, now it's O(n^4)
+     *
      * @param image
      * @param spaceInvader
-     * @param allowedErrors
+     * @param allowedErrors how many errors in matching
      * @return
      * * @throws NullPointerException if arguments are null
      */

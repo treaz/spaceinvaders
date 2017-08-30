@@ -3,6 +3,7 @@ package com.horiaconstantin.invaders;
 public class InvadersGenerator {
 
     //TODO IMPORTANT consider refactoring this into reading from a file and populating the array in that way
+    //TODO encapsulate the invaders into an object (just like I've done for the radarImage)
 
 
     public static String[][] getInvaderOne(){
